@@ -19,18 +19,18 @@ Why?
 
 Imagine the following scenario:
 
+<pre>
+ +------+                   +------+                    +------+
+ |`.    |`.                 |`.    |`.                  |`.    |`. 
+ |  `+--+---+               |  `+--+---+                |  `+--+---+  
+ |   |  | o=|=================o |  | o=|==================o |  |   |  
+ +---+--+   |               +---+--+   |                +---+--+   |
+  `. |   `. |                `. |   `. |                 `. |   `. |
+    `+------+                   +------+                    +------+
 
-    +------+                   +------+                    +------+
-    |`.    |`.                 |`.    |`.                  |`.    |`. 
-    |  `+--+---+               |  `+--+---+                |  `+--+---+  
-    |   |  | o=|=================o |  | o=|==================o |  |   |  
-    +---+--+   |               +---+--+   |                +---+--+   |
-     `. |   `. |                `. |   `. |                 `. |   `. |
-       `+------+                   +------+                    +------+
-
-    Raspberry Pi with             CEC-enabled               TV, panel or beamer 
-    libcec installed              A/V receiver              without CEC support  
-
+ Raspberry Pi with             CEC-enabled               TV, panel or beamer 
+ libcec installed              A/V receiver              without CEC support  
+</pre>
 
 Now, in theory the XBMC instance on Raspberry Pi could be controlled by the A/V receiver's remote. If you enable CEC input
 in XBMC and inspect the debug logs you can see the keypress events if you press butons on the remote. However it does not
@@ -49,6 +49,13 @@ Requirements:
 
 libcec2
 xbmc 11
+
+Installation (on linux):
+
+make
+sudo make install
+chkconfig cecanyway on
+service cecanyway start
 
 
 

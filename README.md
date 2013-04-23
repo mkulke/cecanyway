@@ -1,7 +1,7 @@
 cec anyway
 ==========
 
-A small application to help control xbmc by CEC. Licensed under GPL2. (C) Magnus Kulke.
+A small application to help control xbmc by CEC. Licensed under GPL2. (C) 2013 Magnus Kulke.
 
 What?
 =====

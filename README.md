@@ -47,8 +47,8 @@ its json-rpc api.
 
 Requirements: 
 
-    libcec2
-    xbmc 11
+ * libcec2
+ * xbmc 11
 
 Installation (on linux):
 

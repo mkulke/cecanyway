@@ -62,13 +62,18 @@ Usage:
 By default the CEC key events left, right, down, up, select, exit, play, stop, pause, rewind, backward, ff, forward are
 mapped to their XBMC equivalents.
 
-If you want to map more key events or modify the mapping you can specify that in a configuration file. To add new mappings
-cecanyway can be run standalone with logging enabled. You should see the key codes when the you press buttons on the
-remote.
+If you want to map more key events or overwrite the default mapping you can specify that in a configuration file. To add 
+new mappings cecanyway can be run standalone with logging enabled. You should see the key codes when the you press buttons
+on the remote.
 
     /etc/init.d/cecanyway stop 
     /usr/bin/cecanyway -l
 
-Those keycodes can be mapped in a special using the following syntax:
+Those keycodes can be mapped in a special file using the following syntax:
 
-    22 => 
+    22 => {"jsonrpc": "2.0", "method": "Player.Stop", "params": { "playerid": 1 }, "id": 1}
+    66 => {"jsonrpc": "2.0", "id": 1, "method": "Input.Back"}
+    
+The XBMC json-rpc api is described here: http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6
+
+

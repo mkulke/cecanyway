@@ -43,14 +43,15 @@ How?
 ====
 
 cec anyway is a tiny c++ app, which uses libcec and can be run as daemon in the background. It communicates with xbmc using
-its json-rpc api.
+its json-rpc api. It has been tested and developed on debian linux, but it might work on other platforms as well. The
+following description assumes a linux setup.
 
 Requirements: 
 
  * libcec2
  * xbmc 11
 
-Installation (on linux):
+Installation:
 
     make
     sudo make install
@@ -69,11 +70,9 @@ on the remote.
     /etc/init.d/cecanyway stop 
     /usr/bin/cecanyway -l
 
-Those keycodes can be mapped in a special file using the following syntax:
+Those keycodes can be mapped in a config file (*/etc/cecanyway.conf*) using the following syntax (no newlines in the json parts):
 
     22 => {"jsonrpc": "2.0", "method": "Player.Stop", "params": { "playerid": 1 }, "id": 1}
     66 => {"jsonrpc": "2.0", "id": 1, "method": "Input.Back"}
     
 The XBMC json-rpc api is described here: http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6
-
-

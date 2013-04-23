@@ -48,10 +48,11 @@ string               port;
 bool                 aborted;
 bool                 daemonize;
 bool                 logEvents;                 
+string               configFilePath;
+unsigned int         rpcPort;
+map<int, string>     keyMap;
 
-std::map<int, string> keyMap;
-
-void populateKeyMap()
+void populateKeyMapDefault()
 {
   keyMap[CEC_USER_CONTROL_CODE_LEFT] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Left\"}";
   keyMap[CEC_USER_CONTROL_CODE_RIGHT] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Right\"}";
@@ -68,7 +69,7 @@ void populateKeyMap()
   keyMap[CEC_USER_CONTROL_CODE_FORWARD] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"bigforward\" }, \"id\": 1}";
 }
 
-int CecKeyPress(void*, const cec_keypress key)
+int CecKeyPressCB(void*, const cec_keypress key)
 {
   if (key.duration == 0)
   {
@@ -88,15 +89,13 @@ int CecKeyPress(void*, const cec_keypress key)
       memset(&serv_addr, '0', sizeof(serv_addr)); 
       serv_addr.sin_family = AF_INET;
       inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr);
-      serv_addr.sin_port = htons(9090);
+      serv_addr.sin_port = htons(rpcPort);
  
       if (connect(sockfd, (struct sockaddr*) &serv_addr, sizeof(struct sockaddr_in)) < 0)
       {
-        cout << "error connecting to 127.0.0.1:9090" << endl;
+        cout << "error connecting to 127.0.0.1:" << rpcPort << endl;
         return 1;
       }
-
-      //string json = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"" + command + "\"}";
 
       write(sockfd, json.c_str(), json.length());   
       
@@ -118,21 +117,110 @@ void sighandler(int iSignal)
   aborted = true;
 }
 
-int main (int argc, char* argv[])
-{
-  daemonize = false;
-  logEvents = false;
+void parseOptions(int argc, char* argv[])
+{  
+  stringstream ss;
+  ss << argv[0];
+  ss << " [-d] (daemonize) [-l] (log keypresses) [-f <path>] (path to config file) [-p <port>] (xbmc json-rpc port) [-h] (help)";
+  string usage = ss.str();
+  
   for (int i = 1; i < argc; i++)
   {
     if (strcmp(argv[i], "-d") == 0) 
       daemonize = true;
     else if (strcmp(argv[i], "-l") == 0) 
       logEvents = true;
+    else if (strcmp(argv[i], "-f") == 0)
+    {
+      if (++i == argc)
+      {
+        cout << usage << endl;
+        exit(1);
+      }
+      else
+        configFilePath = argv[i];
+    }
+    else if (strcmp(argv[i], "-p") == 0)
+    {
+      if (++i == argc)
+      {
+        cout << usage << endl;
+        exit(1);
+      }
+      else
+      {
+        rpcPort = atoi(argv[i]);
+        if ((rpcPort < 1) || (rpcPort > 0xffff))
+        {
+          cout << usage << endl;
+          exit(1);
+        }
+      }
+    }
     else
     {
-      cout << argv[0] << " [-d] (daemonize) [-l] (log keypresses) [-h] (help)" << endl;
-      return (strcmp(argv[i], "-h") == 0) ? 0 : 1;
+      cout << usage << endl;
+      exit((strcmp(argv[i], "-h") == 0) ? 0 : 1);
     }
+  }
+}
+
+void populateKeyMapFromFile(ifstream &file)
+{
+  stringstream ss;
+  
+  bool error = false;
+  int i = 1;
+  while (file.good())
+  {
+    unsigned int keycode;
+    string assignLiteral = "=>";
+    string literal;
+    string json;  
+        
+    if (!(file >> keycode))
+    {       
+      if (!file.eof()) error = true;
+      break;
+    }
+    if (!(file >> literal))
+    {
+      error = true;
+      break;
+    }       
+    if (literal != assignLiteral)
+    {
+      error = true;
+      break;
+    }
+    getline(file, json);
+    keyMap[keycode] = json;
+    i++;
+  }
+  
+  if (error)
+  {
+    cout << "could not parse config file line #" << i << endl;
+    exit(1);
+  }
+}
+
+int main (int argc, char* argv[])
+{
+  daemonize = false;
+  logEvents = false;
+  configFilePath = "/etc/cecanyway.conf";
+  rpcPort = 9090;
+  
+  parseOptions(argc, argv);  
+ 
+  populateKeyMapDefault();
+  
+  ifstream configFileStream(configFilePath.c_str());
+  if (configFileStream) {
+  
+    populateKeyMapFromFile(configFileStream);
+    configFileStream.close();
   }
  
   if (daemonize)
@@ -151,9 +239,7 @@ int main (int argc, char* argv[])
   
     setsid();
   }
-
-  populateKeyMap();
-
+  
   if (signal(SIGINT, sighandler) == SIG_ERR)
   {
     cout << "can't register sighandler" << endl;
@@ -163,10 +249,10 @@ int main (int argc, char* argv[])
   configuration.Clear();
   callbacks.Clear();
   snprintf(configuration.strDeviceName, 13, "cecanyway");
-  configuration.clientVersion       = CEC_CONFIG_VERSION;
-  configuration.bActivateSource     = 0;
-  callbacks.CBCecKeyPress           = &CecKeyPress;
-  configuration.callbacks           = &callbacks;
+  configuration.clientVersion = CEC_CONFIG_VERSION;
+  configuration.bActivateSource = 0;
+  callbacks.CBCecKeyPress = &CecKeyPressCB;
+  configuration.callbacks = &callbacks;
   
   configuration.deviceTypes.Add(CEC_DEVICE_TYPE_PLAYBACK_DEVICE);
 

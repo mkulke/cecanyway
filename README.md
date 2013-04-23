@@ -76,3 +76,10 @@ Those keycodes can be mapped in a config file ( __/etc/cecanyway.conf__ ) using 
     66 => {"jsonrpc": "2.0", "id": 1, "method": "Input.Back"}
     
 The XBMC json-rpc api is described here: http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v6
+
+Available options:
+
+ * -d (daemonize)
+ * -l (log key events)
+ * -f </path/to/myconf.conf> (change path to config file, default: /etc/cecanyway.conf)
+ * -p <port> (change json-rpc port, default: 9090)

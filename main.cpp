@@ -53,19 +53,19 @@ std::map<int, string> keyMap;
 
 void populateKeyMap()
 {
-  keyMap[CEC_USER_CONTROL_CODE_LEFT]    = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Left\"}";
-  keyMap[CEC_USER_CONTROL_CODE_RIGHT]   = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Right\"}";
-  keyMap[CEC_USER_CONTROL_CODE_DOWN]    = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Down\"}";
-  keyMap[CEC_USER_CONTROL_CODE_UP]      = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Up\"}";
-  keyMap[CEC_USER_CONTROL_CODE_SELECT]  = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Select\"}";
-  keyMap[CEC_USER_CONTROL_CODE_EXIT]    = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Back\"}";
-  keyMap[CEC_USER_CONTROL_CODE_PLAY]    = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.PlayPause\", \"params\": { \"playerid\": 1 }, \"id\": 1}";
-  keyMap[11]                            = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Stop\", \"params\": { \"playerid\": 1 }, \"id\": 1}";
-  keyMap[CEC_USER_CONTROL_CODE_PAUSE]   = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.PlayPause\", \"params\": { \"playerid\": 1 }, \"id\": 1}";
-  keyMap[72]                            = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"smallbackward\" }, \"id\": 1}";
-  keyMap[76]                            = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"bigbackward\" }, \"id\": 1}";
-  keyMap[73]                            = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"smallforward\" }, \"id\": 1}";
-  keyMap[75]                            = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"bigforward\" }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_LEFT] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Left\"}";
+  keyMap[CEC_USER_CONTROL_CODE_RIGHT] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Right\"}";
+  keyMap[CEC_USER_CONTROL_CODE_DOWN] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Down\"}";
+  keyMap[CEC_USER_CONTROL_CODE_UP] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Up\"}";
+  keyMap[CEC_USER_CONTROL_CODE_SELECT] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Select\"}";
+  keyMap[CEC_USER_CONTROL_CODE_EXIT] = "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"Input.Back\"}";
+  keyMap[CEC_USER_CONTROL_CODE_PLAY] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.PlayPause\", \"params\": { \"playerid\": 1 }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_STOP] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Stop\", \"params\": { \"playerid\": 1 }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_PAUSE] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.PlayPause\", \"params\": { \"playerid\": 1 }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_REWIND] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"smallbackward\" }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_BACKWARD] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"bigbackward\" }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_FAST_FORWARD] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"smallforward\" }, \"id\": 1}";
+  keyMap[CEC_USER_CONTROL_CODE_FORWARD] = "{\"jsonrpc\": \"2.0\", \"method\": \"Player.Seek\", \"params\": { \"playerid\": 1, \"value\": \"bigforward\" }, \"id\": 1}";
 }
 
 int CecKeyPress(void*, const cec_keypress key)

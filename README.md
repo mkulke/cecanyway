@@ -17,20 +17,20 @@ ir hardware built in. Meanwhile it has been integrated well into XBMC.
 Why?
 ====
 
-Picture the following scenario:
+Imagine the following scenario:
 
-<pre>
- +------+                   +------+                    +------+
- |`.    |`.                 |`.    |`.                  |`.    |`. 
- |  `+--+---+               |  `+--+---+                |  `+--+---+  
- |   |  | o=|=================o |  | o=|==================o |  |   |  
- +---+--+   |               +---+--+   |                +---+--+   |
-  `. |   `. |                `. |   `. |                 `. |   `. |
-    `+------+                   +------+                    +------+
 
- Raspberry Pi with             CEC-enabled               TV, panel or beamer 
- libcec installed              A/V receiver              without CEC support  
-</pre>
+    +------+                   +------+                    +------+
+    |`.    |`.                 |`.    |`.                  |`.    |`. 
+    |  `+--+---+               |  `+--+---+                |  `+--+---+  
+    |   |  | o=|=================o |  | o=|==================o |  |   |  
+    +---+--+   |               +---+--+   |                +---+--+   |
+     `. |   `. |                `. |   `. |                 `. |   `. |
+       `+------+                   +------+                    +------+
+
+    Raspberry Pi with             CEC-enabled               TV, panel or beamer 
+    libcec installed              A/V receiver              without CEC support  
+
 
 Now, in theory the XBMC instance on Raspberry Pi could be controlled by the A/V receiver's remote. If you enable CEC input
 in XBMC and inspect the debug logs you can see the keypress events if you press butons on the remote. However it does not
@@ -42,5 +42,13 @@ the spec, captures button presses, and uses those to control XBMC.
 How?
 ====
 
-cec anyway is a tiny c++ app, which uses libcec and can be run as daemon in the backgroud. It communicates with xbmc using
+cec anyway is a tiny c++ app, which uses libcec and can be run as daemon in the background. It communicates with xbmc using
 its json-rpc api.
+
+Requirements: 
+
+libcec2
+xbmc 11
+
+
+

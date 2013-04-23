@@ -55,7 +55,20 @@ Installation (on linux):
     make
     sudo make install
     chkconfig cecanyway on
-    service cecanyway start
+    /etc/init.d/cecanyway start
 
+Usage:
 
+By default the CEC key events left, right, down, up, select, exit, play, stop, pause, rewind, backward, ff, forward are
+mapped to their XBMC equivalents.
 
+If you want to map more key events or modify the mapping you can specify that in a configuration file. To add new mappings
+cecanyway can be run standalone with logging enabled. You should see the key codes when the you press buttons on the
+remote.
+
+    /etc/init.d/cecanyway stop 
+    /usr/bin/cecanyway -l
+
+Those keycodes can be mapped in a special using the following syntax:
+
+    22 => 

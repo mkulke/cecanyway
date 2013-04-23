@@ -47,15 +47,15 @@ its json-rpc api.
 
 Requirements: 
 
-libcec2
-xbmc 11
+    libcec2
+    xbmc 11
 
 Installation (on linux):
 
-make
-sudo make install
-chkconfig cecanyway on
-service cecanyway start
+    make
+    sudo make install
+    chkconfig cecanyway on
+    service cecanyway start
 
 
 

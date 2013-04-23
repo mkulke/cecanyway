@@ -70,7 +70,7 @@ on the remote.
     /etc/init.d/cecanyway stop 
     /usr/bin/cecanyway -l
 
-Those keycodes can be mapped in a config file (__/etc/cecanyway.conf__) using the following syntax (no newlines in the json parts):
+Those keycodes can be mapped in a config file ( __/etc/cecanyway.conf__ ) using the following syntax (no newlines in the json parts):
 
     22 => {"jsonrpc": "2.0", "method": "Player.Stop", "params": { "playerid": 1 }, "id": 1}
     66 => {"jsonrpc": "2.0", "id": 1, "method": "Input.Back"}

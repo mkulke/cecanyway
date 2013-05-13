@@ -236,7 +236,15 @@ int main (int argc, char* argv[])
       // parent
       exit(0);
     }
-  
+#ifndef __WINDOWS__    
+    // write pid file
+    ofstream pidfile;
+    pidfile.open("/var/run/cecanyway.pid");
+    stringstream ss;
+    ss << getpid();
+    pidfile << ss.str();
+    pidfile.close();
+#endif      
     setsid();
   }
   

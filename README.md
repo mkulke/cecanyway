@@ -64,6 +64,7 @@ Raspbmc has bundled libcec2, while the underlying raspian distribution offers on
 to grab the appropriate headers of libcec2 to compile it.
 
 1) Deactivate built-in cec support in XBMC (System -> System -> Input Devices -> Devices -> CEC Adapter -> Activated [ ])
+
 2) Go download libcec2, unzip, and link the header in the cecanyway directory
 
     cd /home/pi

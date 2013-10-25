@@ -57,6 +57,29 @@ Installation:
     sudo make install
     chkconfig cecanyway on
     /etc/init.d/cecanyway start
+    
+Installation instructions for Raspbmc (Oct. 2013):
+
+Raspbmc has bundled libcec2, while the underlying raspian distribution offers only libcec1 in its repository. So we need
+to grab the appropriate headers of libcec2 to compile it.
+
+1) Deactivate built-in cec support in XBMC (System -> System -> Input Devices -> Devices -> CEC Adapter -> Activated [ ])
+2) Go download libcec2, unzip, and link the header in the cecanyway directory
+
+    cd /home/pi
+    wget --no-check-certificate https://github.com/Pulse-Eight/libcec/archive/libcec-2.1.3.tar.gz
+    tar xzf libcec-2.1.3.tar.gz
+    tar zxf cecanyway-1.0.tar.gz
+    cd cecanyway-1.0
+    ln -s ../libcec-libcec-2.1.3/include libcec
+
+3) compile and install it    
+
+    sudo apt-get install make g++
+    make
+    make install
+    sudo update-rc.d cecanyway defaults
+    sudo service cecanyway start
 
 Usage:
 
